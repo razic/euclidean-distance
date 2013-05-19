@@ -2,6 +2,8 @@
 
 > A mathematical function for calculating the distance between two points.
 
+> ![Euclidean distance formula](http://goo.gl/uZ2Xs)
+
 ## Installation
 
 `component install hoverboard/euclidean-distance`

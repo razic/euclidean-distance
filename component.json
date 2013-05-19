@@ -1,0 +1,14 @@
+{
+  "name": "euclidean-distance",
+  "repo": "hoverboard/euclidean-distance",
+  "description": "A mathematical function for calculating the distance between two points.",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}

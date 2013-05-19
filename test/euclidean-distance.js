@@ -51,12 +51,15 @@ describe('euclideanDistance', function() {
   });
 
   describe('euclideanDistance([x1, y1, x2, y2])', function() {
-    describe('when there is one argument that is an array', function() {
-      it('should calculate properly', function() {
-        var result = euclideanDistance([x1, y1, x2, y2]);
+    describe(
+      'when there is one argument that is an array, containing four numbers',
+      function() {
+        it('should calculate properly', function() {
+          var result = euclideanDistance([x1, y1, x2, y2]);
 
-        assert(result === distance);
-      });
-    });
+          assert(result === distance);
+        });
+      }
+    );
   });
 });

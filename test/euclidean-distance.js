@@ -8,10 +8,6 @@ describe('euclideanDistance', function() {
       y2 = -10.02,
       distance = 14.872138380206122;
 
-  it('should be a function', function() {
-    assert(typeof euclideanDistance === 'function');
-  });
-
   describe('euclideanDistance(x1, y1, x2, y2)', function() {
     describe('when there are four arguments that are numbers', function() {
       it('should calculate properly', function() {

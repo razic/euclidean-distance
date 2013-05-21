@@ -1,106 +1,86 @@
+/**
+ * Dependencies
+ */
+var functionSignatures = require('function-signatures');
+
+/**
+ * Expose
+ */
 module.exports = euclideanDistance;
 
-var methodSignatureA = 'four numbers',
-    methodSignatureB = 'two arrays, each containing two numbers',
-    methodSignatureC = 'two objects, each containing x and y properties',
-    methodSignatureD = 'one array, containing four numbers';
+/**
+ * Function signatures
+ */
+var signatures = new functionSignatures({
+  "four numbers": function(x1, y1, x2, y2) {
+    return arguments.length === 4 &&
+    typeof x1 === 'number' &&
+    typeof y1 === 'number' &&
+    typeof x2 === 'number' &&
+    typeof y2 === 'number';
+  },
+  "two arrays, each with two numbers": function(a, b) {
+    return arguments.length === 2 &&
+    a.length === 2 &&
+    b.length === 2 &&
+    typeof a[0] === 'number' &&
+    typeof a[1] === 'number' &&
+    typeof b[0] === 'number' &&
+    typeof b[1] === 'number';
+  },
+  "two objects, each with x and y properties": function(a, b) {
+    return arguments.length === 2 &&
+    typeof a.x === 'number' &&
+    typeof a.y === 'number' &&
+    typeof b.x === 'number' &&
+    typeof b.y === 'number';
+  },
+  "one array with four numbers": function(ab) {
+    return arguments.length === 1 &&
+    ab.length === 4 &&
+    typeof ab[0] === 'number' &&
+    typeof ab[1] === 'number' &&
+    typeof ab[2] === 'number' &&
+    typeof ab[3] === 'number';
+  }
+});
 
+signatures.on("four numbers", function(x1, y1, x2, y2) {
+  this.x1 = x1;
+  this.y1 = y1;
+  this.x2 = x2;
+  this.y2 = y2;
+});
+
+signatures.on("two arrays, each with two numbers", function(a, b) {
+  this.x1 = a[0];
+  this.y1 = a[1];
+  this.x2 = b[0];
+  this.y2 = b[1];
+});
+
+signatures.on("two objects, each with x and y properties", function(a, b) {
+  this.x1 = a.x;
+  this.y1 = a.y;
+  this.x2 = b.x;
+  this.y2 = b.y;
+});
+
+signatures.on("one array with four numbers", function(ab) {
+  this.x1 = ab[0];
+  this.y1 = ab[1];
+  this.x2 = ab[2];
+  this.y2 = ab[3];
+});
+
+/**
+ * Implementation
+ */
 function euclideanDistance() {
-  validateArguments.apply(null, arguments);
+  signatures.normalize(arguments);
 
-  var points = normalizeArguments.apply(null, arguments);
+  var dx = signatures.x2 - signatures.x1;
+  var dy = signatures.y2 - signatures.y1;
 
-  return Math.sqrt(
-    Math.pow(points.b.x - points.a.x, 2) + Math.pow(points.b.y - points.a.y, 2)
-  );
-}
-
-function normalizeArguments() {
-  var points = { a: {}, b: {} };
-
-  switch (methodSignature.apply(null, arguments)) {
-    case methodSignatureA:
-      points.a.x = arguments[0];
-      points.a.y = arguments[1];
-      points.b.x = arguments[2];
-      points.b.y = arguments[3];
-      break;
-    case methodSignatureB:
-      points.a.x = arguments[0][0];
-      points.a.y = arguments[0][1];
-      points.b.x = arguments[1][0];
-      points.b.y = arguments[1][1];
-      break;
-    case methodSignatureC:
-      points.a = arguments[0];
-      points.b = arguments[1];
-      break;
-    case methodSignatureD:
-      points.a.x = arguments[0][0];
-      points.a.y = arguments[0][1];
-      points.b.x = arguments[0][2];
-      points.b.y = arguments[0][3];
-      break;
-  }
-
-  return points;
-}
-
-function validateArguments() {
-  switch (methodSignature.apply(null, arguments)) {
-    case methodSignatureA:
-    case methodSignatureB:
-    case methodSignatureC:
-    case methodSignatureD:
-      break;
-    default:
-      throw "Method signature was not recognized.";
-  }
-}
-
-function methodSignature() {
-  if (isMethodSignatureA.apply(null, arguments)) return methodSignatureA;
-  if (isMethodSignatureB.apply(null, arguments)) return methodSignatureB;
-  if (isMethodSignatureC.apply(null, arguments)) return methodSignatureC;
-  if (isMethodSignatureD.apply(null, arguments)) return methodSignatureD;
-}
-
-function isMethodSignatureA() {
-  return arguments.length === 4 &&
-  typeof arguments[0] === 'number' &&
-  typeof arguments[1] === 'number' &&
-  typeof arguments[2] === 'number' &&
-  typeof arguments[3] === 'number';
-}
-
-function isMethodSignatureB() {
-  return arguments.length === 2 &&
-  arguments[0] instanceof Array &&
-  arguments[1] instanceof Array &&
-  arguments[0].length === 2 &&
-  arguments[1].length === 2 &&
-  typeof arguments[0][0] === 'number' &&
-  typeof arguments[0][1] === 'number' &&
-  typeof arguments[1][0] === 'number' &&
-  typeof arguments[1][1] === 'number';
-}
-
-function isMethodSignatureC() {
-  return arguments.length === 2 &&
-  arguments[0] instanceof Object &&
-  arguments[1] instanceof Object &&
-  typeof arguments[0].x === 'number' &&
-  typeof arguments[0].y === 'number' &&
-  typeof arguments[1].x === 'number' &&
-  typeof arguments[1].y === 'number';
-}
-
-function isMethodSignatureD() {
-  return arguments.length === 1 &&
-  arguments[0] instanceof Array &&
-  arguments[0].length === 4 &&
-  typeof arguments[0][0] === 'number' &&
-  typeof arguments[0][1] === 'number' &&
-  typeof arguments[0][2] === 'number' &&
-  typeof arguments[0][3] === 'number';
+  return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 }

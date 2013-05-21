@@ -1,7 +1,7 @@
 # euclidean-distance
 
-> A mathematical function for calculating the distance between two points in 2D
-> or 3D space.
+> A mathematical function for calculating the distance between two points in
+> any dimension.
 
 ## Installation
 
@@ -9,29 +9,49 @@
 
 ## API
 
-### 2D
+### One dimension
 
-![Euclidean distance formula 2D](http://goo.gl/uZ2Xs)
+> ![Euclidean distance formula 1D](http://goo.gl/WVo1e)
 
-#### euclideanDistance(x1, y1, x2, y2)
+#### euclideanDistance(x, y);
 
-#### euclideanDistance([x1, y1, x2, y2])
+#### euclideanDistance([x, y]);
 
-#### euclideanDistance([x1, y1], [x2, y2])
+#### euclideanDistance([x], [y]);
 
-#### euclideanDistance({ x: x1, y: y1 }, { x: x2, y: y2 })
+#### euclideanDistance({ x: x, y: y});
 
-### 3D
+### Two dimensions
 
-![Euclidean distance formula 3D](http://goo.gl/QBqGG)
+> ![Euclidean distance formula 2D](http://goo.gl/uZ2Xs)
 
-#### euclideanDistance(x1, y1, z1 x2, y2, z2)
+#### euclideanDistance(p1, p2, q1, q2)
 
-#### euclideanDistance([x1, y1, z1, x2, y2, z2])
+#### euclideanDistance([p1, p2, q1, q2])
 
-#### euclideanDistance([x1, y1, z1], [x2, y2, z2])
+#### euclideanDistance([p1, p2], [q1, q2])
 
-#### euclideanDistance({ x: x1, y: y1, z: z1 }, { x: x2, y: y2, z: z2 })
+#### euclideanDistance({ p1: p1, p2: p2 }, { q1: q1, q2: q2 })
+
+### Three dimensions
+
+> ![Euclidean distance formula 3D](http://goo.gl/QBqGG)
+
+#### euclideanDistance(p1, p2, p3, q1, q2, q3)
+
+#### euclideanDistance([p1, p2, p3, q1, q2, q3])
+
+#### euclideanDistance([p1, p2, p3], [q1, q2, q3])
+
+#### euclideanDistance({ p1: p1, p2: p2, p3: p3 }, { q1: q1, q2: q2, q3: q3 })
+
+### N Dimensions
+
+> ![Euclidean distance formula ND](http://goo.gl/eHDii)
+
+The API remains the same no matter the number of dimensions you wish to
+calculate. If you use the `{ x: 1, y: 2, z: 3 }` syntax, you may name the
+object's properties whatever you wish.
 
 ## License
 

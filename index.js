@@ -13,15 +13,13 @@ module.exports = euclideanDistance;
  */
 var signatures = new functionSignatures({
   "four numbers": function(x1, y1, x2, y2) {
-    return arguments.length === 4 &&
-    typeof x1 === 'number' &&
+    return typeof x1 === 'number' &&
     typeof y1 === 'number' &&
     typeof x2 === 'number' &&
     typeof y2 === 'number';
   },
   "two arrays, each with two numbers": function(a, b) {
-    return arguments.length === 2 &&
-    a.length === 2 &&
+    return a.length === 2 &&
     b.length === 2 &&
     typeof a[0] === 'number' &&
     typeof a[1] === 'number' &&
@@ -29,15 +27,13 @@ var signatures = new functionSignatures({
     typeof b[1] === 'number';
   },
   "two objects, each with x and y properties": function(a, b) {
-    return arguments.length === 2 &&
-    typeof a.x === 'number' &&
+    return typeof a.x === 'number' &&
     typeof a.y === 'number' &&
     typeof b.x === 'number' &&
     typeof b.y === 'number';
   },
   "one array with four numbers": function(ab) {
-    return arguments.length === 1 &&
-    ab.length === 4 &&
+    return ab.length === 4 &&
     typeof ab[0] === 'number' &&
     typeof ab[1] === 'number' &&
     typeof ab[2] === 'number' &&

@@ -12,122 +12,70 @@ module.exports = euclideanDistance;
  * Function signatures
  */
 var signatures = new functionSignatures({
-  "six numbers": function(x1, y1, z1, x2, y2, z2) {
-    return typeof x1 === 'number' &&
-    typeof y1 === 'number' &&
-    typeof z1 === 'number' &&
-    typeof x2 === 'number' &&
-    typeof y2 === 'number' &&
-    typeof z2 === 'number';
+  "an even amount of numbers passed singly": function() {
+    if (arguments.length % 2 !== 0) return;
+
+    for (var i = 0; i < arguments.length; i++)
+      if (typeof arguments[i] !== 'number') return;
+
+    return true;
   },
-  "four numbers": function(x1, y1, x2, y2) {
-    return typeof x1 === 'number' &&
-    typeof y1 === 'number' &&
-    typeof x2 === 'number' &&
-    typeof y2 === 'number';
+  "two objects with equal length of keys": function(a, b) {
+    var aKeys = Object.getOwnPropertyNames(a),
+        bKeys = Object.getOwnPropertyNames(b),
+        aLength = aKeys.length,
+        bLength = bKeys.length;
+
+    if (aLength === 0 || bLength === 0 || aLength !== bLength) return;
+
+    for (var i = 0; i < aLength; i++) {
+      var aKey = aKeys[i],
+          bKey = bKeys[i];
+
+      if (typeof a[aKey] !== 'number' || typeof b[bKey] !== 'number') return;
+    }
+
+    return true;
   },
-  "two arrays, each with three numbers": function(a, b) {
-    return a.length === 3 &&
-    b.length === 3 &&
-    typeof a[0] === 'number' &&
-    typeof a[1] === 'number' &&
-    typeof a[2] === 'number' &&
-    typeof b[0] === 'number' &&
-    typeof b[1] === 'number' &&
-    typeof b[2] === 'number';
-  },
-  "two arrays, each with two numbers": function(a, b) {
-    return a.length === 2 &&
-    b.length === 2 &&
-    typeof a[0] === 'number' &&
-    typeof a[1] === 'number' &&
-    typeof b[0] === 'number' &&
-    typeof b[1] === 'number';
-  },
-  "two objects, each with x, y and z properties": function(a, b) {
-    return typeof a.x === 'number' &&
-    typeof a.y === 'number' &&
-    typeof a.z === 'number' &&
-    typeof b.x === 'number' &&
-    typeof b.y === 'number' &&
-    typeof b.z === 'number';
-  },
-  "two objects, each with x and y properties": function(a, b) {
-    return typeof a.x === 'number' &&
-    typeof a.y === 'number' &&
-    typeof b.x === 'number' &&
-    typeof b.y === 'number';
-  },
-  "one array with six numbers": function(ab) {
-    return ab.length === 6 &&
-    typeof ab[0] === 'number' &&
-    typeof ab[1] === 'number' &&
-    typeof ab[2] === 'number' &&
-    typeof ab[3] === 'number' &&
-    typeof ab[4] === 'number' &&
-    typeof ab[5] === 'number';
-  },
-  "one array with four numbers": function(ab) {
-    return ab.length === 4 &&
-    typeof ab[0] === 'number' &&
-    typeof ab[1] === 'number' &&
-    typeof ab[2] === 'number' &&
-    typeof ab[3] === 'number';
+  "one array with an even length greater than zero": function(a) {
+    if (!(a instanceof Array)) return;
+    if (a.length === 0) return;
+    if (a.length % 2 !== 0) return;
+
+    return true;
   }
 });
 
-signatures.on("six numbers", function(x1, y1, z1, x2, y2, z2) {
-  this.distance = euclideanDistance3D(x1, y1, z1, x2, y2, z2);
+signatures.on("an even amount of numbers passed singly", function() {
+  var args = Array.prototype.slice.call(arguments, 0),
+      half = args.length / 2,
+      i = 0;
+
+  for (; i < half; this.sum += Math.pow(args[i] - args[i + half], 2), i++);
 });
 
-signatures.on("four numbers", function(x1, y1, x2, y2) {
-  this.distance = euclideanDistance2D(x1, y1, x2, y2);
+signatures.on("two objects with equal length of keys", function(a, b) {
+  var aKeys = Object.getOwnPropertyNames(a),
+      bKeys = Object.getOwnPropertyNames(b),
+      aLength = aKeys.length,
+      i = 0;
+
+  if (a instanceof Array && b instanceof Array) aLength -= 1;
+
+  for (; i < aLength; this.sum += Math.pow(a[aKeys[i]] - b[bKeys[i]], 2), i++);
 });
 
-signatures.on("two arrays, each with three numbers", function(a, b) {
-  this.distance = euclideanDistance3D(a[0], a[1], a[2], b[0], b[1], b[2]);
-});
-
-signatures.on("two arrays, each with two numbers", function(a, b) {
-  this.distance = euclideanDistance2D(a[0], a[1], b[0], b[1]);
-});
-
-signatures.on("two objects, each with x, y and z properties", function(a, b) {
-  this.distance = euclideanDistance3D(a.x, a.y, a.z, b.x, b.y, b.z);
-});
-
-signatures.on("two objects, each with x and y properties", function(a, b) {
-  this.distance = euclideanDistance2D(a.x, a.y, b.x, b.y);
-});
-
-signatures.on("one array with six numbers", function(ab) {
-  this.distance = euclideanDistance3D.apply(null, ab);
-});
-
-signatures.on("one array with four numbers", function(ab) {
-  this.distance = euclideanDistance2D.apply(null, ab);
+signatures.on("one array with an even length greater than zero", function(a) {
+  this.emit.apply(this, ["an even amount of numbers passed singly"].concat(a));
 });
 
 /**
  * Implementation
  */
 function euclideanDistance() {
+  signatures.sum = 0;
+
   signatures.normalize(arguments);
 
-  return signatures.distance;
-}
-
-function euclideanDistance2D(x1, y1, x2, y2) {
-  var dx = x2 - x1,
-      dy = y2 - y1;
-
-  return Math.sqrt((dx * dx) + (dy * dy));
-}
-
-function euclideanDistance3D(x1, y1, z1, x2, y2, z2) {
-  var dx = x2 - x1,
-      dy = y2 - y1,
-      dz = z2 - z1;
-
-  return Math.sqrt((dx * dx) + (dy * dy) + (dz * dz));
+  return Math.sqrt(signatures.sum);
 }

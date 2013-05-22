@@ -3,7 +3,13 @@
   "repo": "hoverboard/euclidean-distance",
   "description": "A mathematical function for calculating the distance between two points in any dimension.",
   "version": "1.0.0",
-  "keywords": [],
+  "keywords": [
+    "math",
+    "geometry",
+    "distance",
+    "euclidean",
+    "mathematics"
+  ],
   "dependencies": {
     "razic/function-signatures": "1.0.1"
   },

@@ -19,7 +19,7 @@
 
 #### euclideanDistance([x], [y]);
 
-#### euclideanDistance({ x: x, y: y});
+#### euclideanDistance({ x: x }, { y: y });
 
 ### Two dimensions
 

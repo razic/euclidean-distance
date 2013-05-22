@@ -50,8 +50,10 @@
 > ![Euclidean distance formula ND](http://goo.gl/eHDii)
 
 The API remains the same no matter the number of dimensions you wish to
-calculate. If you use the `{ x: 1, y: 2, z: 3 }` syntax, you may name the
-object's properties whatever you wish.
+calculate. If you use the `euclideanDistance({ x: x1, y: y1 }, { x: x2, y: y2
+})` object syntax, you may name the object's properties whatever you wish (this
+applies to all dimensions). In fact, the keys don't even need to be named the
+same in both objects; it's the order that matters.
 
 ## License
 

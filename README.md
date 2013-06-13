@@ -1,4 +1,4 @@
-# euclidean-distance
+# Euclidean Distance
 
 > A mathematical function for calculating the distance between two points in
 > any dimension.

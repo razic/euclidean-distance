@@ -1,7 +1,6 @@
 # Euclidean Distance
 
-> A mathematical function for calculating the distance between two points in
-> any dimension.
+> A mathematical function for calculating distance in any dimension.
 
 ## Installation
 

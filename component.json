@@ -1,7 +1,7 @@
 {
   "name": "euclidean-distance",
   "repo": "hoverboard/euclidean-distance",
-  "description": "A mathematical function for calculating the distance between two points in any dimension.",
+  "description": "A mathematical function for calculating distance in any dimension.",
   "version": "1.0.0",
   "keywords": [
     "math",
